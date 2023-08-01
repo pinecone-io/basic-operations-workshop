@@ -3,7 +3,12 @@ This workshop contains a collection of labs that will get you hands-on with Pine
 please refer to [Pinecone Examples](https://docs.pinecone.io/page/examples). If you are interested in deep dives, refer to [Pinecone Learning Center](https://www.pinecone.io/learn/)
 
 ## [Lab #1](./lab1.ipynb)  
-This is a simple lab that has the basics for setting environment variables, installing dependencies and working with the pinecone client. This lab uses dummy data. 
+This is a simple lab that has the basics for setting environment variables, installing dependencies and working with the pinecone client. This lab uses dummy data. This lab introduces the following operations concepts:
+
+* Install the python pinecone grpc client
+* Leverage environment variables for pinecone client initialization
+* Index creation using a storage optimzed pod(s1)
+* Generate and upsert vectors with meta-data  
 
 ## [Lab #2](./lab2.ipynb)  
 This lab introduces the following operations concepts:
