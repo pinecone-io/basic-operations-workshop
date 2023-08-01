@@ -1,6 +1,5 @@
 from locust import HttpUser, task, between
 from locust import events as ev
-import lab_utils as lu
 import pinecone
 from dotenv import load_dotenv
 import os
@@ -50,10 +49,11 @@ class PineconeUser(HttpUser):
     def query_pinecone(self):
 
         top_k_hit = False
-        start_time = time.time()
 
         # Select a random image+embedding from the test dataset
         test_vector = random.choice(test_vectors)
+
+        start_time = time.time()
         query_result = index.query(
             vector = test_vector['embedding'],
             namespace="fashion-mnist",
@@ -62,6 +62,7 @@ class PineconeUser(HttpUser):
             include_metadata=True
         )
         end_time = time.time()
+
         response_time = (end_time - start_time) * 1000
         for match in query_result.matches:
             if match.metadata['description'] == test_vector['description']:
