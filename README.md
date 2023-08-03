@@ -30,3 +30,12 @@ This lab introduces the following operations concepts:
 * Query pinecone with a test image that is not included in the public data set
 * Validate pinecone accuracy with test images that are included in the public data set 
 * Run a load test using public test data to validate accuracy, P50-P100 latency and QPS
+
+## Troubleshooting
+
+If you encounter issues with python/pip the following commands might help clean up a broken dependency tree.
+
+```
+!pip freeze > requirements.txt
+!cat requirements.txt | xargs -n 1 pip uninstall -y
+```

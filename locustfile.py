@@ -11,6 +11,7 @@ import random
 
 pinecone.init(api_key=os.environ['PINECONE_API_KEY'])
 index = pinecone.Index(os.environ['PINECONE_INDEX_NAME'])
+namespace = os.environ['INDEX_NAMESPACE']
 top_k = 10
 
 # load 100 random images from test dataset
@@ -33,13 +34,12 @@ label_descriptions = {0: "T-shirt/top",
 
 # Generate vector embeddings for each image in the dataset
 test_vectors = []
-for image in test_dataset:
+for img in test_dataset:
     with torch.no_grad():
-        image_pp = preprocess(image['image']).unsqueeze(0).to(device)
-        image_features = model.encode_image(image_pp)
-        embedding_numpy = image_features.cpu().numpy().squeeze().tolist()
-        test_vectors.append({'embedding': embedding_numpy,
-                        'description': label_descriptions[image["label"]]})
+        image_pp = preprocess(img['image']).unsqueeze(0).to(device)
+        embedding = model.encode_image(image_pp).squeeze().tolist()
+        test_vectors.append({'embedding': embedding,
+                        'description': label_descriptions[img["label"]]})
 
 class PineconeUser(HttpUser):
     
@@ -56,7 +56,7 @@ class PineconeUser(HttpUser):
         start_time = time.time()
         query_result = index.query(
             vector = test_vector['embedding'],
-            namespace="fashion-mnist",
+            namespace=namespace,
             top_k=top_k,
             include_values=False,
             include_metadata=True
