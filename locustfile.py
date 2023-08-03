@@ -9,6 +9,8 @@ import torch
 import clip
 import random
 
+load_dotenv('.env')
+
 pinecone.init(api_key=os.environ['PINECONE_API_KEY'])
 index = pinecone.Index(os.environ['PINECONE_INDEX_NAME'])
 namespace = os.environ['INDEX_NAMESPACE']
@@ -73,12 +75,17 @@ class PineconeUser(HttpUser):
                         name="query_pinecone",
                         response_time=response_time,
                         response_length=top_k,
+                        exception=None
                     )
         else:
             ev.request.fire(request_type="grpc",
                         name="query_pinecone",
                         response_time=response_time,
                         response_length=top_k,
-                        exception="Top K results do not contain the correct label"
+                        exception="Top K miss",
+                        context={}
                     )
+            
+
+
         
