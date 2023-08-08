@@ -3,3 +3,4 @@ __pycache__/*.pyc
 fashion-mnist-resnet.parquet
 requirements.txt
 fashion-mnist-clip.parquet
+locustfile-copy.py
