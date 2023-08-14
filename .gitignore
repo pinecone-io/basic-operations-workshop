@@ -2,7 +2,7 @@
 __pycache__/*.pyc
 fashion-mnist-resnet.parquet
 requirements.txt
-fashion-mnist-clip.parquet
+#fashion-mnist-clip.parquet
 locustfile-copy.py
 #fashion-mnist-clip-copy.parquet
 .env.swp
